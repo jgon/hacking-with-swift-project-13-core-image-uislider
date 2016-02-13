@@ -92,7 +92,13 @@
                             <constraint firstItem="T6F-26-PsC" firstAttribute="top" secondItem="aDC-Vw-mSz" secondAttribute="bottom" constant="2" id="yD9-4l-hGs"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="uul-fW-n35"/>
+                    <navigationItem key="navigationItem" id="uul-fW-n35">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="SIg-bH-6KR">
+                            <connections>
+                                <action selector="importPicture:" destination="BYZ-38-t0r" id="2jI-cc-Fbd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="xOz-xc-gz7" id="CyC-Bz-UsM"/>
                         <outlet property="intensity" destination="aDC-Vw-mSz" id="1lZ-H9-0XG"/>

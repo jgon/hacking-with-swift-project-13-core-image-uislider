@@ -8,13 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var intensity: UISlider!
     
+    var currentImage: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "YACIFP"
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -30,6 +33,33 @@ class ViewController: UIViewController {
     }
 
     @IBAction func intensityChanged(sender: UISlider) {
+    }
+    
+    @IBAction func importPicture(sender: UIBarButtonItem) {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        var newImage: UIImage
+        
+        if let possibleImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            newImage = possibleImage
+        } else if let possibleImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            newImage = possibleImage
+        } else {
+            return
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        currentImage = newImage
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
