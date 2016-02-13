@@ -78,11 +78,11 @@
 			isa = PBXGroup;
 			children = (
 				C45462001C6FA8AC0099F7EC /* AppDelegate.swift */,
-				C45462021C6FA8AC0099F7EC /* ViewController.swift */,
-				C45462041C6FA8AC0099F7EC /* Main.storyboard */,
 				C45462071C6FA8AC0099F7EC /* Assets.xcassets */,
-				C45462091C6FA8AC0099F7EC /* LaunchScreen.storyboard */,
 				C454620C1C6FA8AC0099F7EC /* Info.plist */,
+				C45462091C6FA8AC0099F7EC /* LaunchScreen.storyboard */,
+				C45462041C6FA8AC0099F7EC /* Main.storyboard */,
+				C45462021C6FA8AC0099F7EC /* ViewController.swift */,
 			);
 			path = Project13;
 			sourceTree = "<group>";
@@ -90,8 +90,8 @@
 		C45462141C6FA8AD0099F7EC /* Project13Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C45462151C6FA8AD0099F7EC /* Project13Tests.swift */,
 				C45462171C6FA8AD0099F7EC /* Info.plist */,
+				C45462151C6FA8AD0099F7EC /* Project13Tests.swift */,
 			);
 			path = Project13Tests;
 			sourceTree = "<group>";
