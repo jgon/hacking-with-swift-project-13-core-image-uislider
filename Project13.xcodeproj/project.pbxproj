@@ -36,6 +36,7 @@
 		C45462111C6FA8AD0099F7EC /* Project13Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project13Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C45462151C6FA8AD0099F7EC /* Project13Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project13Tests.swift; sourceTree = "<group>"; };
 		C45462171C6FA8AD0099F7EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C45462201C6FA9210099F7EC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 		C45461F41C6FA8AC0099F7EC = {
 			isa = PBXGroup;
 			children = (
+				C45462201C6FA9210099F7EC /* README.md */,
 				C45461FF1C6FA8AC0099F7EC /* Project13 */,
 				C45462141C6FA8AD0099F7EC /* Project13Tests */,
 				C45461FE1C6FA8AC0099F7EC /* Products */,
