@@ -32,6 +32,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func changeFilter(sender: UIButton) {
+        let alertController = UIAlertController(title: "Select a filter", message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "CIBumpDistortion", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "CIGaussianBlur", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "CIPixellate", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "CISepiaTone", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "CITwirlDistortion", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "CIUnsharpMask", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "CIVignette", style: .Default, handler: setFilter))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func save(sender: UIButton) {
@@ -73,11 +83,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func applyProcessing() {
-        currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
+        
+        let inputKeys = currentFilter.inputKeys
+        
+        if inputKeys.contains(kCIInputIntensityKey) {
+            currentFilter.setValue(intensity.value, forKey: kCIInputIntensityKey)
+        }
+        if inputKeys.contains(kCIInputRadiusKey) {
+            currentFilter.setValue(intensity.value * 200, forKey: kCIInputRadiusKey)
+        }
+        if inputKeys.contains(kCIInputScaleKey) {
+            currentFilter.setValue(intensity.value * 10, forKey: kCIInputScaleKey)
+        }
+        if inputKeys.contains(kCIInputCenterKey) {
+            currentFilter.setValue(CIVector(x: currentImage.size.width / 2, y: currentImage.size.height / 2), forKey: kCIInputCenterKey)
+        }
         
         let cgImage = context.createCGImage(currentFilter.outputImage!, fromRect: currentFilter.outputImage!.extent)
         let processedImage = UIImage(CGImage: cgImage)
         imageView.image = processedImage
+    }
+    
+    func setFilter(action: UIAlertAction) {
+        currentFilter = CIFilter(name: action.title!)
+        
+        let beginImage = CIImage(image: currentImage)
+        currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
+        
+        applyProcessing()
     }
 }
 
