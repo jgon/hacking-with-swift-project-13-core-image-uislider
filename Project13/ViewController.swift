@@ -45,6 +45,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func save(sender: UIButton) {
+        guard let image = imageView.image
+        else {
+            return
+        }
+        UIImageWriteToSavedPhotosAlbum(image, self, "image:didFinishSavingWithError:contextInfo:", nil)
     }
 
     @IBAction func intensityChanged(sender: UISlider) {
@@ -84,6 +89,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func applyProcessing() {
         
+        guard let currentImage = currentImage
+        else {
+            return
+        }
+        
         let inputKeys = currentFilter.inputKeys
         
         if inputKeys.contains(kCIInputIntensityKey) {
@@ -99,18 +109,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             currentFilter.setValue(CIVector(x: currentImage.size.width / 2, y: currentImage.size.height / 2), forKey: kCIInputCenterKey)
         }
         
-        let cgImage = context.createCGImage(currentFilter.outputImage!, fromRect: currentFilter.outputImage!.extent)
+        guard let outputImage = currentFilter.outputImage, let extend = currentFilter.outputImage?.extent
+        else {
+            return
+        }
+        let cgImage = context.createCGImage(outputImage, fromRect: extend)
         let processedImage = UIImage(CGImage: cgImage)
         imageView.image = processedImage
     }
-    
+
     func setFilter(action: UIAlertAction) {
         currentFilter = CIFilter(name: action.title!)
+        
+        guard let currentImage = currentImage
+        else {
+            return
+        }
         
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
         
         applyProcessing()
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+        if error == nil {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        } else {
+            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
     }
 }
 
